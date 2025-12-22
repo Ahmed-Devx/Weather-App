@@ -43,7 +43,7 @@ function fetchWeather() {
         return;
       }
 
-      console.log("📍 City Weather Data:", data);
+      console.log("City Weather Data:", data);
 
       document.getElementById(
         "city-name"
@@ -126,34 +126,26 @@ function fetchWeather() {
         data.visibility / 1000
       )} km`;
 
-      // Weather Alerts logic – CURRENT WEATHER API ke .then(data => { ... }) ke andar
       let alertText = "No immediate severe weather alerts for your area.";
       let alertIcon = "fa-circle-exclamation";
       let alertColor = "text-danger";
 
-      // Temperature based alert
       if (data.main.temp >= 40) {
         alertText = "Extreme heat alert. Avoid outdoor activities.";
         alertIcon = "fa-temperature-high";
         alertColor = "text-danger";
-      }
-      // Wind based alert
-      else if (data.wind.speed >= 15) {
+      } else if (data.wind.speed >= 15) {
         alertText = "Strong wind advisory in your area.";
         alertIcon = "fa-wind";
         alertColor = "text-warning";
-      }
-      // Rain based alert
-      else if (data.weather[0].main.toLowerCase().includes("rain")) {
+      } else if (data.weather[0].main.toLowerCase().includes("rain")) {
         alertText = "Rain expected. Carry an umbrella.";
         alertIcon = "fa-cloud-rain";
         alertColor = "text-info";
       }
 
-      // Set alert text
       document.getElementById("alert-text").textContent = alertText;
 
-      // Change icon dynamically
       const alertIconEl = document.querySelector("#alerts i");
       alertIconEl.className = `fa-solid ${alertIcon} fs-1 ${alertColor} me-4`;
 
@@ -224,21 +216,16 @@ function fetchWeather() {
                 )}°</td>
               </tr>`;
           });
-          // ===============================
-          // AIR QUALITY API (AQI)
-          // ===============================
 
           fetch(
             `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${key}`
           )
             .then((res) => res.json())
             .then((airData) => {
-              console.log("🌬 Air Quality Data:", airData);
+              console.log("Air Quality Data:", airData);
 
-              // AQI value (1–5)
               const aqiValue = airData.list[0].main.aqi;
 
-              // AQI mapping (text, color, progress)
               const aqiMap = {
                 1: { text: "Good", color: "#2ecc71", percent: 20 },
                 2: { text: "Fair", color: "#9acd32", percent: 40 },
@@ -249,9 +236,6 @@ function fetchWeather() {
 
               const aqiInfo = aqiMap[aqiValue];
 
-              // ===============================
-              // SET AQI TEXT & NUMBER
-              // ===============================
               document.getElementById("aqi").textContent = aqiValue;
               document.getElementById("aqi-desc").textContent = aqiInfo.text;
 
