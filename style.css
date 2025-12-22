@@ -1,0 +1,226 @@
+:root {
+  --bg: #0b131e;
+  --sidebar: #121c2b;
+  --card: #162235;
+  --text: #ffffff;
+  --text-muted: #9ca3af;
+  --accent: #0dcaf0;
+  --border: rgba(255, 255, 255, 0.251);
+  --shadow: rgba(0, 0, 0, 0.4);
+  --input-bg: rgba(255, 255, 255, 0.05);
+}
+[data-theme="light"] {
+  --bg: #ffffffe4;
+  --sidebar: #ffffff;
+  --card: #ffffff;
+  --text: #1a202c;
+  --text-muted: #64748b;
+  --border: rgba(0, 0, 0, 0.08);
+  --shadow: rgba(0, 0, 0, 0.05);
+  --input-bg: #edf2f7;
+}
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: all 0.3s ease;
+  overflow-x: hidden;
+}
+
+.sidebar {
+  width: 270px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  padding-top: 10px;
+  transition: 0.4s;
+  z-index: 1000;
+}
+.nav-link {
+  color: var(--text-muted);
+  padding: 14px 22px;
+  margin: 6px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.nav-link:hover {
+  background: rgba(13, 202, 240, 0.15);
+  color: var(--accent);
+}
+.nav-link.active {
+  background: linear-gradient(135deg, #0dcaf0, #3a7bd5);
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(13, 202, 240, 0.3);
+}
+
+.main-wrapper {
+  margin-left: 270px;
+  min-height: 100vh;
+}
+.top-header {
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 900;
+}
+
+.glass-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 26px;
+}
+.small-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+
+  transition: 0.3s;
+}
+.small-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+}
+
+.content-section {
+  display: none;
+  padding: 35px;
+  animation: fadeIn 0.4s ease;
+}
+.content-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.aqi-bar {
+  height: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 15px 0;
+  overflow: hidden;
+}
+.aqi-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 40%;
+}
+
+.theme-switch {
+  width: 48px;
+  height: 24px;
+  position: relative;
+}
+.theme-switch input {
+  display: none;
+}
+.slider {
+  background: #333;
+  border-radius: 20px;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+.slider:before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  transition: 0.4s;
+}
+input:checked + .slider {
+  background: var(--accent);
+}
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.active {
+    transform: translateX(0);
+  }
+  .main-wrapper {
+    margin-left: 0;
+  }
+}
+
+.search-box {
+  display: flex;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 5px 5px 5px 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  padding: 10px 0;
+}
+
+.search-box button {
+  background: linear-gradient(135deg, #0dcaf0, #3a7bd5);
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-weight: 600;
+}
+.aqi-bar {
+  width: 100%;
+  height: 12px;
+  background: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.aqi-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  transition: width 0.8s ease, background-color 0.8s ease;
+}
+
+@media (max-width: 576px) {
+  .search-box {
+    padding: 5px 5px 5px 15px;
+  }
+  .search-box button {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  .content-section {
+    padding: 20px;
+  }
+}

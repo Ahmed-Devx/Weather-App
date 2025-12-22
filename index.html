@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyCast Pro | Full Suite</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <nav class="sidebar">
+      <div class="px-4 mb-4 d-flex justify-content-between align-items-center">
+        <h4 class="fw-bold mb-0">
+          <i class="fa-solid fa-cloud-bolt text-info me-2 mt-3"></i>SkyCast
+        </h4>
+        <i
+          class="fa-solid fa-xmark fs-4 d-lg-none"
+          id="close-btn"
+          style="cursor: pointer"
+        ></i>
+      </div>
+
+      <div class="nav flex-column">
+        <div class="nav-link active" onclick="showSection('dashboard',this)">
+          <i class="fa-solid fa-table-columns me-3"></i>Dashboard
+        </div>
+        <div class="nav-link" onclick="showSection('current',this)">
+          <i class="fa-solid fa-temperature-high me-3"></i>Current Weather
+        </div>
+        <div class="nav-link" onclick="showSection('hourly',this)">
+          <i class="fa-solid fa-clock me-3"></i>Hourly Forecast
+        </div>
+        <div class="nav-link" onclick="showSection('daily',this)">
+          <i class="fa-solid fa-calendar-days me-3"></i>7-Day Forecast
+        </div>
+        <div class="nav-link" onclick="showSection('air',this)">
+          <i class="fa-solid fa-wind me-3"></i>Air Quality
+        </div>
+        <div class="nav-link" onclick="showSection('alerts',this)">
+          <i class="fa-solid fa-triangle-exclamation me-3"></i>Weather Alerts
+        </div>
+      </div>
+    </nav>
+
+    <div class="main-wrapper">
+      <header class="top-header">
+        <div class="d-flex align-items-center gap-3">
+          <i
+            class="fa-solid fa-bars fs-4 d-lg-none"
+            id="menu-btn"
+            style="cursor: pointer"
+          ></i>
+          <h5 id="section-title" class="mb-0 fw-bold">Dashboard</h5>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle" />
+            <span class="slider"></span>
+          </label>
+          <img
+            src="https://ui-avatars.com/api/?name=Admin&background=0dcaf0&color=fff"
+            width="40"
+            class="rounded-circle border border-2 border-info"
+          />
+        </div>
+      </header>
+
+      <div id="dashboard" class="content-section active">
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="weather-search">
+              <div class="search-box">
+                <input
+                  type="text"
+                  id="city-search"
+                  placeholder="Search city (e.g. Karachi)"
+                />
+                <button id="searchBtn">Search</button>
+              </div>
+            </div>
+            <div
+              class="glass-card bg-primary text-white border-0"
+              style="
+                background: linear-gradient(135deg, #0dcaf0 0%, #3a7bd5 100%);
+              "
+            >
+              <h2 id="city-name" class="fw-bold">--</h2>
+              <p class="opacity-75">--</p>
+              <div
+                class="d-flex align-items-center justify-content-between mt-4"
+              >
+                <h1 id="main-temp" class="display-1 fw-bold mb-0">---</h1>
+                <img
+                  src="https://openweathermap.org/img/wn/04d@4x.png"
+                  width="120"
+                />
+              </div>
+              <p id="weather-desc" class="fs-4 mb-0">---</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="glass-card">
+              <h5 class="fw-bold mb-4">Sun & Moon</h5>
+              <div class="d-flex justify-content-between mb-3">
+                <span
+                  ><i class="fa-solid fa-sun text-warning me-2"></i>
+                  Sunrise</span
+                >
+                <b id="sunrise-time">---</b>
+              </div>
+              <div class="d-flex justify-content-between mb-4">
+                <span
+                  ><i class="fa-solid fa-moon text-info me-2"></i> Sunset</span
+                >
+                <b id="sunset-time">---</b>
+              </div>
+              <hr />
+              <p class="small text-secondary mb-0 Daylight">---</p>
+              <br />
+              <p class="mb-1 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-temperature-half text-warning"></i>
+                Feels like <span id="feels-like-dash"> ---</span>°
+              </p>
+              <br />
+              <p class="mb-1 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-wind text-info"></i>
+                Wind <span id="wind-dash"> ---</span>
+              </p>
+              <br />
+              <p class="opacity-75 mb-1 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-eye text-primary"></i>
+                Visibility <span id="visibility-dash">---</span>
+              </p>
+              <br />
+              <p class="opacity-75 mb-1 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-gauge-high text-success"></i>
+                Pressure <span id="pressure-dash">---</span>
+              </p>
+              <br />
+              <p class="opacity-75 mb-1 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-cloud text-light"></i>
+                Clouds <span id="cloud-dash">--- %</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="current" class="content-section">
+        <h4 class="mb-4 fw-bold">Detailed Metrics</h4>
+        <div class="row g-4">
+          <div class="col-md-3 col-6">
+            <div class="small-card">
+              <i
+                class="fa-solid fa-temperature-three-quarters text-danger mb-2"
+              ></i
+              ><br />Feels Like<br />
+              <h4 class="mb-0 mt-2" id="feels-like">---</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="small-card">
+              <i class="fa-solid fa-droplet text-info mb-2"></i
+              ><br />Humidity<br />
+              <h4 class="mb-0 mt-2" id="humidity">---</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="small-card">
+              <i class="fa-solid fa-wind text-secondary mb-2"></i><br />Wind
+              Speed<br />
+              <h4 class="mb-0 mt-2" id="wind">---</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="small-card">
+              <i class="fa-solid fa-gauge text-success mb-2"></i
+              ><br />Pressure<br />
+              <h4 class="mb-0 mt-2" id="pressure">---</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="small-card">
+              <i class="fa-solid fa-eye text-primary mb-2"></i
+              ><br />Visibility<br />
+              <h4 class="mb-0 mt-2" id="vis-val">---</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="small-card">
+              <i class="fa-solid fa-sun text-warning mb-2"></i><br />UV Index<br />
+              <h4 class="mb-0 mt-2" id="uv-val">---</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="small-card">
+              <i class="fa-solid fa-cloud text-white-50 mb-2"></i
+              ><br />Cloudiness<br />
+              <h4 class="mb-0 mt-2" id="cloud-val">---</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="small-card">
+              <i class="fa-solid fa-snowflake text-info mb-2"></i><br />Dew
+              Point<br />
+              <h4 class="mb-0 mt-2" id="dew-val">---</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="hourly" class="content-section">
+        <h4 class="mb-4 fw-bold">Next 24 Hours</h4>
+        <div class="row g-3" id="hourly-list">
+          <div class="col-6 col-md-2">
+            <div class="small-card">
+              <small class="text-secondary">Now</small><br /><img
+                src="https://openweathermap.org/img/wn/03n.png"
+                width="40"
+              /><br /><b>---</b>
+            </div>
+          </div>
+          <div class="col-6 col-md-2">
+            <div class="small-card">
+              <small class="text-secondary">2 PM</small><br /><img
+                src="https://openweathermap.org/img/wn/03n.png"
+                width="40"
+              /><br /><b>---</b>
+            </div>
+          </div>
+          <div class="col-6 col-md-2">
+            <div class="small-card">
+              <small class="text-secondary">4 PM</small><br /><img
+                src="https://openweathermap.org/img/wn/02d.png"
+                width="40"
+              /><br /><b>---</b>
+            </div>
+          </div>
+          <div class="col-6 col-md-2">
+            <div class="small-card">
+              <small class="text-secondary">6 PM</small><br /><img
+                src="https://openweathermap.org/img/wn/02d.png"
+                width="40"
+              /><br /><b>---</b>
+            </div>
+          </div>
+          <div class="col-6 col-md-2">
+            <div class="small-card">
+              <small class="text-secondary">8 PM</small><br /><img
+                src="https://openweathermap.org/img/wn/03n.png"
+                width="40"
+              /><br /><b>---</b>
+            </div>
+          </div>
+          <div class="col-6 col-md-2">
+            <div class="small-card">
+              <small class="text-secondary">10 PM</small><br /><img
+                src="https://openweathermap.org/img/wn/02d.png"
+                width="40"
+              /><br /><b>---</b>
+            </div>
+          </div>
+          <div class="col-6 col-md-2">
+            <div class="small-card">
+              <small class="text-secondary">10 PM</small><br /><img
+                src="https://openweathermap.org/img/wn/03n.png"
+                width="40"
+              /><br /><b>---</b>
+            </div>
+          </div>
+          <div class="col-6 col-md-2">
+            <div class="small-card">
+              <small class="text-secondary">10 PM</small><br /><img
+                src="https://openweathermap.org/img/wn/03n.png"
+                width="40"
+              /><br /><b>---</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="daily" class="content-section">
+        <h4 class="mb-4 fw-bold">7-Day Outlook</h4>
+        <div class="glass-card p-0 overflow-hidden">
+          <table class="table table-dark table-hover mb-0" id="daily-table">
+            <thead class="text-secondary">
+              <tr>
+                <th class="ps-4 py-3">Day</th>
+                <th>Weather</th>
+                <th>Max</th>
+                <th>Min</th>
+              </tr>
+            </thead>
+            <tbody id="daily-body">
+              <tr class="align-middle">
+                <td class="ps-4">Today</td>
+                <td>
+                  <img
+                    src="https://openweathermap.org/img/wn/10d.png"
+                    width="30"
+                    class="me-2"
+                  />
+                  ---
+                </td>
+                <td class="text-info fw-bold">---</td>
+                <td class="text-secondary">---</td>
+              </tr>
+              <tr class="align-middle">
+                <td class="ps-4">Tuesday</td>
+                <td>
+                  <img
+                    src="https://openweathermap.org/img/wn/01d.png"
+                    width="30"
+                    class="me-2"
+                  />
+                  ---
+                </td>
+                <td class="text-info fw-bold">---</td>
+                <td class="text-secondary">---</td>
+              </tr>
+              <tr class="align-middle">
+                <td class="ps-4">Wednesday</td>
+                <td>
+                  <img
+                    src="https://openweathermap.org/img/wn/01d.png"
+                    width="30"
+                    class="me-2"
+                  />
+                  ---
+                </td>
+                <td class="text-info fw-bold">---</td>
+                <td class="text-secondary">---</td>
+              </tr>
+              <tr class="align-middle">
+                <td class="ps-4">Thursday</td>
+                <td>
+                  <img
+                    src="https://openweathermap.org/img/wn/01d.png"
+                    width="30"
+                    class="me-2"
+                  />
+                  ---
+                </td>
+                <td class="text-info fw-bold">---</td>
+                <td class="text-secondary">---</td>
+              </tr>
+              <tr class="align-middle">
+                <td class="ps-4">Friday</td>
+                <td>
+                  <img
+                    src="https://openweathermap.org/img/wn/01d.png"
+                    width="30"
+                    class="me-2"
+                  />
+                  ---
+                </td>
+                <td class="text-info fw-bold">---</td>
+                <td class="text-secondary">---</td>
+              </tr>
+              <tr class="align-middle">
+                <td class="ps-4">Saturday</td>
+                <td>
+                  <img
+                    src="https://openweathermap.org/img/wn/01d.png"
+                    width="30"
+                    class="me-2"
+                  />
+                  ---
+                </td>
+                <td class="text-info fw-bold">---</td>
+                <td class="text-secondary">---</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="air" class="content-section">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="glass-card">
+              <h5>Main AQI Index</h5>
+              <h1 class="display-2 fw-bold text-success mt-3" id="aqi">---</h1>
+              <p id="aqi-desc" class="fs-5">Excellent air quality</p>
+              <div class="aqi-bar">
+                <div class="aqi-fill" id="aqi-progress"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="glass-card">
+              <h5>Pollutants (μg/m3)</h5>
+              <div class="d-flex justify-content-between mt-3">
+                <span>PM2.5</span><b id="pm25">---</b>
+              </div>
+              <hr class="my-2" />
+              <div class="d-flex justify-content-between">
+                <span>PM10</span><b id="pm10">---</b>
+              </div>
+              <hr class="my-2" />
+              <div class="d-flex justify-content-between">
+                <span>CO</span><b id="co">---</b>
+              </div>
+              <hr class="my-2" />
+              <div class="d-flex justify-content-between">
+                <span>SO2</span><b id="so2">---</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="alerts" class="content-section">
+        <div class="glass-card border-danger bg-danger bg-opacity-10">
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-circle-exclamation fs-1 text-danger me-4"></i>
+            <div>
+              <h4 class="text-danger fw-bold mb-1">Weather Alert</h4>
+              <p class="mb-0 text-danger" id="alert-text">
+                No immediate severe weather alerts for your area.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 glass-card">
+          <h5>Safety Recommendations</h5>
+          <ul class="mt-3 text-secondary">
+            <li>Stay hydrated during peak sun hours.</li>
+            <li>Keep an umbrella if rain probability is > 50%.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="app.js"></script>
+    <script src="weather.js"></script>
+  </body>
+</html>
